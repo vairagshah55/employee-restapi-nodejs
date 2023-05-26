@@ -45,6 +45,10 @@ app.post('/example', (req, res) => {
 // Define the route for handling POST requests to "/add"
 app.post('/add', dbEmp.createEmployee);
 
+app.get('/all/employees', dbEmp.getEmployees)
+
+app.get("/:id/employee", dbEmp.getEmployeebyID)
+
 
 // //TODO ERROR CHECK
 // app.post("/add", dbEmp.createEmployee)
