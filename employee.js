@@ -64,9 +64,45 @@ const getEmployeebyID = (req, res) => {
     })
 }
 
+const updateEmployeebyID = (req, res) => {
+    console.log("update in")
+    let id = parseInt(req.params.id)
+
+    const { name } = req.body
+    pool.query(`UPDATE  employees SET name = $1 WHERE id = $2 `, [name, id], (err, result) => {
+        if (err) {
+            throw err
+        }
+        if (result) {
+            res.json({
+                data: "data updated successfully"
+            })
+        }
+    })
+}
+
+const deleteEmployeebyID = (req, res) => {
+    let id = parseInt(req.params.id);
+
+    console.log(id);
+
+    pool.query(`DELETE FROM employees WHERE id = $1`, [id], (err, result) => {
+        if (err) {
+            throw err
+        }
+        if (result) {
+            res.json({
+                data: "deleted succesfully"
+            })
+        }
+    })
+}
+
 //export 
 module.exports = {
     createEmployee,
     getEmployees,
     getEmployeebyID,
+    updateEmployeebyID,
+    deleteEmployeebyID,
 }
