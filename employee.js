@@ -30,7 +30,43 @@ const createEmployee = (req, res) => {
         });
 };
 
+
+const getEmployees = (req, res) => {
+
+    pool.query(`SELECT * FROM employees`, (err, result) => {
+        if (err) {
+            // console.log(err)
+            throw err;
+        }
+        else {
+            // console.log(result)
+            res.json({
+                data: result.rows
+            })
+        }
+    })
+}
+
+const getEmployeebyID = (req, res) => {
+    console.log("in check")
+
+    let id = parseInt(req.params.id)
+
+    pool.query(`SELECT * FROM employees WHERE id = $1`, [id], (err, result) => {
+        if (err) {
+            throw err
+        }
+        if (res) {
+            res.json({
+                data: result.rows
+            })
+        }
+    })
+}
+
 //export 
 module.exports = {
-    createEmployee
+    createEmployee,
+    getEmployees,
+    getEmployeebyID,
 }
